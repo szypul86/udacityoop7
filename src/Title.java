@@ -26,13 +26,14 @@ public class Title {
             title = scanner.nextLine();
         }
 
+
         //internal check:
-        System.out.println(random + " there are " + countTitles + " titles, and the chosen title is: " + title );
+        //System.out.println(random + " there are " + countTitles + " titles, and the chosen title is: " + title );
 
-
-        int titleLength = (title.length());
-        String encrypted = "";
         // encrypting the title in a new variable that will be a place to store and change the answers
+        String encrypted = "";
+        int titleLength = (title.length());
+
         for (int i=0; i<titleLength; i++) {
             if (title.charAt(i) != ' ')
                 encrypted = encrypted + '_';
@@ -40,38 +41,43 @@ public class Title {
                 encrypted = encrypted + title.charAt(i);
         }
         //internal check:
-        System.out.println(encrypted);
+        //System.out.println(encrypted);
 
-        int scoreToloose =10;
+        //guessing part
+        // set of variables for a guessing part
+        int scoreToloose = 10;
         int wrongLetter = 0;
         String wrongLetters = "";
-        Scanner guessScanner = new Scanner(System.in);
-
         int indexOf = 0;
+
+        Scanner guessScanner = new Scanner(System.in);
 
         while (!encrypted.equals(title)) {
             System.out.println("You are guessing: " + encrypted);
             System.out.println("You have guessed " + wrongLetter + " wrong letters:" + wrongLetters);
             System.out.println("Guess a letter:");
             char letter = guessScanner.next().charAt(0);
-
-            //System.out.println("letter:" + letter);
+            //is the letter in title:
             if (title.indexOf(letter) < 0) {
                 wrongLetter++;
                 wrongLetters = wrongLetters + ' ' + letter;
+                //if we are out of score to loose
                 if (wrongLetter >= scoreToloose)
                     break;
             }
             else {
-
+                // untill the indexof returns not negative value (means there is still such letter in the word),
+                // replace "_" with that letter in encrypted
                 while (title.indexOf(letter, indexOf) >= 0) {
                     indexOf = title.indexOf(letter, indexOf);
                     encrypted = encrypted.substring(0,indexOf) + letter + encrypted.substring(indexOf +1);
                     indexOf ++;
                 }
+                // need to reset the index for next search
                 indexOf = 0;
             }
         }
+        // winning conditions check
         if (wrongLetter < scoreToloose)
             System.out.println("Congratulations, you win!");
         else
