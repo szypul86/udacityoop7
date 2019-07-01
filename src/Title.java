@@ -11,7 +11,6 @@ public class Title {
         String title = " ";
         //unless the file has no more lines:
         while(scanner.hasNextLine()) {
-
             //scan a line and store it in line variable
             String line = scanner.nextLine();
             // count line
@@ -20,8 +19,9 @@ public class Title {
         // pick a random int number from the range of lines in file
         int random = (int) (Math.random() * countTitles) + 1;
 
-        //int random = 0;
+        // moving scanner to the beginning of the file
         scanner = new Scanner(file);
+        // setting title to randomly picked value to be guessed in the game
         for (int i=0; i<random; i++) {
             title = scanner.nextLine();
         }
@@ -36,13 +36,12 @@ public class Title {
         for (int i=0; i<titleLength; i++) {
             if (title.charAt(i) != ' ')
                 encrypted[i] = '_';
-            else {
+            else
                 encrypted[i] = title.charAt(i);
-
-            }
         }
         //internal check:
         System.out.println(encrypted);
+        
 
 
 
